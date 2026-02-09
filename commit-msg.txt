@@ -1,0 +1,9 @@
+🔧 Fix static export for GitHub Pages
+
+🐛 Fixed build error: API routes incompatible with static export
+✨ Converted API route to client-side generator functions
+📝 Created name-generators.ts utility for client-side usage
+🗑️ Removed API route directory (not needed for static export)
+✅ Build now succeeds with output: 'export'
+🚀 Ready for GitHub Pages deployment
+

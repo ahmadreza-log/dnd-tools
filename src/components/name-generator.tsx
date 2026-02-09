@@ -7,6 +7,7 @@ import { Key, useState } from 'react'
 import { LuCopy } from 'react-icons/lu'
 import CopyToClipboard from '@/utils/copy-to-clipboard'
 import { titleCase } from "title-case";
+import { generateNames } from '@/utils/name-generators';
 
 /**
  * Name Generator Component
@@ -85,11 +86,11 @@ const NameGenerator = () => {
     }
 
     /**
-     * Fetches generated names from the API based on the selected category
+     * Generates names based on the selected category
      * 
      * This function is called when a user selects a category from the autocomplete.
-     * It makes a request to the API endpoint with the slugified category name,
-     * then updates the component state with the generated names.
+     * It calls the name generator function directly (client-side) with the slugified
+     * category name, then updates the component state with the generated names.
      * 
      * @param value - The selected category key (slugified name type)
      */
@@ -101,29 +102,20 @@ const NameGenerator = () => {
         SetValue(String(value))
 
         try {
-            // Fetch names from the API endpoint
+            // Generate names directly using the generator function
             // The value is already slugified from the autocomplete key
-            const request = await fetch(`/api/names/${value}`)
+            const names = await generateNames(String(value))
 
-            // Check if the request was successful
-            if (!request.ok) {
-                console.error('Failed to fetch:', request.statusText)
-                return
-            }
-
-            // Parse the JSON response containing the generated names
-            const response = await request.json()
-
-            console.log(response)
+            console.log(names)
 
             // Update the items state with the generated names
-            SetItems(response)
+            SetItems(names)
 
         } catch (error) {
             // Reset state on error and log the error
             SetItems([])
             SetValue('')
-            console.error('Error fetching names:', error)
+            console.error('Error generating names:', error)
         }
     }
 
