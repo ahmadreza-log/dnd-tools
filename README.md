@@ -1,8 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎲 D&D Tools
 
-## Getting Started
+یک مجموعه ابزار کامل برای بازیکنان و داستان‌نویسان Dungeons & Dragons که شامل تولیدکننده نام‌های فانتزی و ابزارهای مفید دیگر است.
 
-First, run the development server:
+## ✨ ویژگی‌ها
+
+### 🎭 تولیدکننده نام (Name Generator)
+- **Alien Names**: تولید نام‌های فضایی و بیگانه
+- **Amazon Names**: تولید نام‌های آمازونی و جنگجو
+- **Anansi Names**: تولید نام‌های آکان/غنایی الهام‌گرفته از فرهنگ آفریقایی
+
+هر تولیدکننده:
+- ✅ فیلتر حساسیت برای جلوگیری از محتوای نامناسب
+- ✅ الگوریتم‌های پیشرفته برای تولید نام‌های طبیعی
+- ✅ مستندات کامل و کد بهینه‌شده
+
+### 🎲 تاس‌انداز (Dice Roller)
+ابزار ساده و کاربردی برای پرتاب تاس‌های D&D
+
+## 🚀 شروع سریع
+
+### پیش‌نیازها
+- Node.js 18+ 
+- npm, yarn, pnpm یا bun
+
+### نصب
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd dnd-tools
+
+# Install dependencies
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### اجرای پروژه
 
 ```bash
 npm run dev
@@ -14,23 +50,134 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+سپس مرورگر را در [http://localhost:3000](http://localhost:3000) باز کنید.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 ساختار پروژه
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+dnd-tools/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/
+│   │   │   └── names/
+│   │   │       └── [type]/     # API endpoint for name generation
+│   │   ├── name-generator/     # Name generator page
+│   │   ├── dice-roller/        # Dice roller page
+│   │   └── page.tsx            # Home page
+│   ├── components/             # React components
+│   │   ├── name-generator.tsx
+│   │   ├── dice-roller.tsx
+│   │   └── header.tsx
+│   └── utils/
+│       ├── generators/
+│       │   └── names/          # Name generator modules
+│       │       ├── alien.ts
+│       │       ├── amazon.ts
+│       │       └── anansi.ts
+│       ├── sensitivity-check.ts
+│       └── copy-to-clipboard.ts
+├── package.json
+└── README.md
+```
 
-## Learn More
+## 🔧 تکنولوژی‌ها
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: [Next.js 16](https://nextjs.org/) با App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **UI Components**: HeroUI (NextUI fork)
+- **Animations**: Framer Motion
+- **Icons**: React Icons
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📡 API Endpoints
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### تولید نام
 
-## Deploy on Vercel
+```
+GET /api/names/[type]
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**پارامترها:**
+- `type`: نوع نام (alien, amazon, anansi)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**مثال:**
+```bash
+GET /api/names/alien
+# Response: ["xkrath", "q'varn", "zthul", ...]
+```
+
+**کدهای وضعیت:**
+- `200`: موفق - آرایه‌ای از نام‌های تولید شده
+- `404`: نوع نام پشتیبانی نمی‌شود
+- `500`: خطای سرور
+
+## 🛠️ اسکریپت‌ها
+
+```bash
+npm run dev      # اجرای سرور توسعه
+npm run build    # ساخت پروژه برای production
+npm run start    # اجرای سرور production
+npm run lint     # بررسی کد با ESLint
+```
+
+## 🎯 افزودن تولیدکننده نام جدید
+
+1. فایل جدید را در `src/utils/generators/names/` ایجاد کنید
+2. تابع تولیدکننده را با ساختار زیر پیاده‌سازی کنید:
+
+```typescript
+import SensitivityCheck from "@/utils/sensitivity-check"
+
+const COUNT = 10
+const MAX_ATTEMPTS = 1000
+
+const YourNames = (): Response => {
+    // Implementation
+    const generate = (): string => {
+        // Name generation logic
+        // Must use SensitivityCheck(name) before returning
+    }
+    
+    const names: string[] = []
+    for (let i = 0; i < COUNT; i++) {
+        names[i] = generate()
+    }
+    
+    return Response.json(names)
+}
+
+export default YourNames
+```
+
+3. در `src/app/api/names/[type]/route.tsx`:
+   - Import کنید
+   - به `generators` map اضافه کنید
+
+## 📝 مستندات
+
+کدها با JSDoc مستندسازی شده‌اند. برای مشاهده مستندات:
+- فایل‌های generator را در `src/utils/generators/names/` بررسی کنید
+- API route را در `src/app/api/names/[type]/route.tsx` ببینید
+
+## 🤝 مشارکت
+
+مشارکت‌ها خوش‌آمد هستند! لطفاً:
+1. Fork کنید
+2. Branch جدید بسازید (`git checkout -b feature/amazing-feature`)
+3. تغییرات را commit کنید (`git commit -m '✨ Add amazing feature'`)
+4. Push کنید (`git push origin feature/amazing-feature`)
+5. Pull Request باز کنید
+
+## 📄 لایسنس
+
+این پروژه یک پروژه شخصی است.
+
+## 🙏 تشکر
+
+- Next.js team برای فریمورک عالی
+- HeroUI team برای کامپوننت‌های UI
+- جامعه D&D برای الهام
+
+---
+
+ساخته شده با ❤️ برای جامعه D&D

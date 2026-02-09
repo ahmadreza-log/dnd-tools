@@ -134,7 +134,7 @@ const NameGenerator = () => {
                 {/* Autocomplete dropdown for selecting name category */}
                 <Autocomplete
                     className="max-w-full"
-                    label="Select an animal"
+                    label="Select Category"
                     size="sm"
                     variant="faded"
                     onSelectionChange={GetNames}>

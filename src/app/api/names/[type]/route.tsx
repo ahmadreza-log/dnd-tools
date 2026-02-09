@@ -1,5 +1,7 @@
 import { NextRequest } from "next/server";
 import AlienNames from "@/utils/generators/names/alien";
+import AmazonNames from "@/utils/generators/names/amazon";
+import AnansiNames from "@/utils/generators/names/anansi";
 
 /**
  * API Route Handler for generating names by type
@@ -55,6 +57,8 @@ export async function GET(
          */
         const generators: Record<string, () => Response> = {
             alien: AlienNames,
+            amazon: AmazonNames,
+            anansi: AnansiNames
             // Add more generators here as they are created
             // Example: "elf": ElfNames,
             // Example: "dwarf": DwarfNames,
