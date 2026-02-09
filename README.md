@@ -1,29 +1,29 @@
 # 🎲 D&D Tools
 
-یک مجموعه ابزار کامل برای بازیکنان و داستان‌نویسان Dungeons & Dragons که شامل تولیدکننده نام‌های فانتزی و ابزارهای مفید دیگر است.
+A comprehensive toolkit for Dungeons & Dragons players and storytellers, featuring fantasy name generators and other useful utilities.
 
-## ✨ ویژگی‌ها
+## ✨ Features
 
-### 🎭 تولیدکننده نام (Name Generator)
-- **Alien Names**: تولید نام‌های فضایی و بیگانه
-- **Amazon Names**: تولید نام‌های آمازونی و جنگجو
-- **Anansi Names**: تولید نام‌های آکان/غنایی الهام‌گرفته از فرهنگ آفریقایی
+### 🎭 Name Generator
+- **Alien Names**: Generate space and alien-sounding names
+- **Amazon Names**: Generate Amazonian and warrior names
+- **Anansi Names**: Generate Akan/Ghanaian-inspired names from African culture
 
-هر تولیدکننده:
-- ✅ فیلتر حساسیت برای جلوگیری از محتوای نامناسب
-- ✅ الگوریتم‌های پیشرفته برای تولید نام‌های طبیعی
-- ✅ مستندات کامل و کد بهینه‌شده
+Each generator includes:
+- ✅ Sensitivity filter to prevent inappropriate content
+- ✅ Advanced algorithms for natural-sounding name generation
+- ✅ Complete documentation and optimized code
 
-### 🎲 تاس‌انداز (Dice Roller)
-ابزار ساده و کاربردی برای پرتاب تاس‌های D&D
+### 🎲 Dice Roller
+Simple and practical tool for rolling D&D dice
 
-## 🚀 شروع سریع
+## 🚀 Quick Start
 
-### پیش‌نیازها
-- Node.js 18+ 
-- npm, yarn, pnpm یا bun
+### Prerequisites
+- Node.js 18+
+- npm, yarn, pnpm, or bun
 
-### نصب
+### Installation
 
 ```bash
 # Clone the repository
@@ -38,7 +38,7 @@ yarn install
 pnpm install
 ```
 
-### اجرای پروژه
+### Running the Project
 
 ```bash
 npm run dev
@@ -50,9 +50,9 @@ pnpm dev
 bun dev
 ```
 
-سپس مرورگر را در [http://localhost:3000](http://localhost:3000) باز کنید.
+Then open your browser at [http://localhost:3000](http://localhost:3000).
 
-## 📁 ساختار پروژه
+## 📁 Project Structure
 
 ```
 dnd-tools/
@@ -80,9 +80,9 @@ dnd-tools/
 └── README.md
 ```
 
-## 🔧 تکنولوژی‌ها
+## 🔧 Technologies
 
-- **Framework**: [Next.js 16](https://nextjs.org/) با App Router
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **UI Components**: HeroUI (NextUI fork)
@@ -91,39 +91,39 @@ dnd-tools/
 
 ## 📡 API Endpoints
 
-### تولید نام
+### Name Generation
 
 ```
 GET /api/names/[type]
 ```
 
-**پارامترها:**
-- `type`: نوع نام (alien, amazon, anansi)
+**Parameters:**
+- `type`: Name type (alien, amazon, anansi)
 
-**مثال:**
+**Example:**
 ```bash
 GET /api/names/alien
 # Response: ["xkrath", "q'varn", "zthul", ...]
 ```
 
-**کدهای وضعیت:**
-- `200`: موفق - آرایه‌ای از نام‌های تولید شده
-- `404`: نوع نام پشتیبانی نمی‌شود
-- `500`: خطای سرور
+**Status Codes:**
+- `200`: Success - Array of generated names
+- `404`: Name type not supported
+- `500`: Server error
 
-## 🛠️ اسکریپت‌ها
+## 🛠️ Scripts
 
 ```bash
-npm run dev      # اجرای سرور توسعه
-npm run build    # ساخت پروژه برای production
-npm run start    # اجرای سرور production
-npm run lint     # بررسی کد با ESLint
+npm run dev      # Run development server
+npm run build    # Build project for production
+npm run start    # Run production server
+npm run lint     # Lint code with ESLint
 ```
 
-## 🎯 افزودن تولیدکننده نام جدید
+## 🎯 Adding a New Name Generator
 
-1. فایل جدید را در `src/utils/generators/names/` ایجاد کنید
-2. تابع تولیدکننده را با ساختار زیر پیاده‌سازی کنید:
+1. Create a new file in `src/utils/generators/names/`
+2. Implement the generator function with the following structure:
 
 ```typescript
 import SensitivityCheck from "@/utils/sensitivity-check"
@@ -149,35 +149,40 @@ const YourNames = (): Response => {
 export default YourNames
 ```
 
-3. در `src/app/api/names/[type]/route.tsx`:
-   - Import کنید
-   - به `generators` map اضافه کنید
+3. In `src/app/api/names/[type]/route.tsx`:
+   - Import it
+   - Add it to the `generators` map
 
-## 📝 مستندات
+## 📝 Documentation
 
-کدها با JSDoc مستندسازی شده‌اند. برای مشاهده مستندات:
-- فایل‌های generator را در `src/utils/generators/names/` بررسی کنید
-- API route را در `src/app/api/names/[type]/route.tsx` ببینید
+Code is documented with JSDoc. To view documentation:
+- Check generator files in `src/utils/generators/names/`
+- See API route in `src/app/api/names/[type]/route.tsx`
 
-## 🤝 مشارکت
+## 🤝 Contributing
 
-مشارکت‌ها خوش‌آمد هستند! لطفاً:
-1. Fork کنید
-2. Branch جدید بسازید (`git checkout -b feature/amazing-feature`)
-3. تغییرات را commit کنید (`git commit -m '✨ Add amazing feature'`)
-4. Push کنید (`git push origin feature/amazing-feature`)
-5. Pull Request باز کنید
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m '✨ Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 لایسنس
+## 📄 License
 
-این پروژه یک پروژه شخصی است.
+This is a personal project.
 
-## 🙏 تشکر
+## 🙏 Acknowledgments
 
-- Next.js team برای فریمورک عالی
-- HeroUI team برای کامپوننت‌های UI
-- جامعه D&D برای الهام
+- Next.js team for the amazing framework
+- HeroUI team for UI components
+- D&D community for inspiration
 
 ---
 
-ساخته شده با ❤️ برای جامعه D&D
+Made with ❤️ for the D&D community
+
+## 🌐 Languages
+
+- [English](README.md) (Current)
+- [فارسی (Persian)](README.fa.md)
