@@ -247,7 +247,7 @@ const NameGenerator = () => {
             {/* Generated Names List Section */}
             {/* Only render when names have been generated */}
             {items.neutral && items.neutral.length > 0 && (
-                <div className='flex justify-center gap-4 mt-4 max-md:flex-col'>
+                <div className='container mx-auto flex justify-center gap-4 mt-4 max-md:flex-col'>
                     {items.neutral.length > 0 && (
                         <div className='w-xl max-md:w-full rounded-small border-medium border-default-200'>
                             <div className='px-4 py-3 border-b-medium border-b-default-200 bg-default-200'>Neutral Names</div>
