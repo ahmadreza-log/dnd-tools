@@ -2,6 +2,7 @@ import tools from "@/utils/tools";
 import { Divider } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { getAssetPath } from "@/utils/path";
 
 /**
  * Home Page Component
@@ -21,11 +22,12 @@ export default function Home() {
       <Link href={"/"} className="flex flex-col items-center justify-center">
         {/* Logo with hover effect (grayscale on hover) */}
         <Image 
-          src={'/logo.png'} 
+          src={getAssetPath('/logo.png')}
           alt="D&D Tools" 
           width={138} 
           height={138} 
-          className="grayscale-0 transition duration-300 hover:grayscale" 
+          className="grayscale-0 transition duration-300 hover:grayscale"
+          unoptimized
         />
         <h1 className="text-3xl text-orange-700 font-bold">Dungeons & Dragons Tools</h1>
       </Link>

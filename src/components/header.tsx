@@ -3,6 +3,7 @@ import _ from "underscore";
 import Image from "next/image";
 import Link from "next/link";
 import { Tool } from "@/types/types";
+import { getAssetPath } from "@/utils/path";
 
 /**
  * Header Component
@@ -23,11 +24,12 @@ export default async function Header() {
                 {/* Logo and Title Section */}
                 <Link href={"/"} className="flex items-center gap-2">
                     <Image 
-                        src={'/logo.png'} 
+                        src={getAssetPath('/logo.png')}
                         alt="D&D Tools" 
                         width={64} 
                         height={64} 
-                        loading="eager" 
+                        loading="eager"
+                        unoptimized
                     />
                     <div className="flex flex-col">
                         <h1 className="text-2xl font-bold">D&D Tools</h1>
