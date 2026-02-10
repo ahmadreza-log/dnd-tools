@@ -30,11 +30,12 @@ const PATTERNS = [
  * using phonetic patterns. Each generated name is checked against a sensitivity
  * filter to ensure it doesn't contain inappropriate content.
  * 
- * @returns {Promise<Response>} JSON response containing an array of generated names
+ * @param gender - The gender type for name generation (default: 'neutral')
+ * @returns {Response} JSON response containing an object with gender keys and arrays of generated names
  * 
  * @example
  * GET /api/names/alien
- * Response: ["xkrath", "q'varn", "zthul", ...]
+ * Response: { "neutral": ["xkrath", "q'varn", "zthul", ...] }
  */
 const AlienNames = () => {
     /**
@@ -161,9 +162,11 @@ const AlienNames = () => {
      * Generate the requested number of names
      * Each name is generated independently and checked for sensitivity
      */
-    const names: string[] = []
+    const names: Record<string, string[]> = {
+        neutral: []
+    }
     for (let i = 0; i < COUNT; i++) {
-        names[i] = generate()
+        names.neutral[i] = generate()
     }
 
     // Return the list of generated names as JSON

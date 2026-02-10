@@ -8,10 +8,13 @@ A comprehensive toolkit for Dungeons & Dragons players and storytellers, featuri
 - **Alien Names**: Generate space and alien-sounding names
 - **Amazon Names**: Generate Amazonian and warrior names
 - **Anansi Names**: Generate Akan/Ghanaian-inspired names from African culture
+- **Angel Names**: Generate angelic names with gender support (male, female, neutral)
 
 Each generator includes:
 - ✅ Sensitivity filter to prevent inappropriate content
 - ✅ Advanced algorithms for natural-sounding name generation
+- ✅ Gender support (neutral, male, female) where applicable
+- ✅ Client-side generation (no API routes needed)
 - ✅ Complete documentation and optimized code
 
 ### 🎲 Dice Roller
@@ -58,22 +61,21 @@ Then open your browser at [http://localhost:3000](http://localhost:3000).
 dnd-tools/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── api/
-│   │   │   └── names/
-│   │   │       └── [type]/     # API endpoint for name generation
 │   │   ├── name-generator/     # Name generator page
 │   │   ├── dice-roller/        # Dice roller page
 │   │   └── page.tsx            # Home page
 │   ├── components/             # React components
-│   │   ├── name-generator.tsx
-│   │   ├── dice-roller.tsx
-│   │   └── header.tsx
+│   │   ├── name-generator.tsx  # Main name generator component
+│   │   ├── dice-roller.tsx     # Dice roller component
+│   │   └── header.tsx          # Navigation header
 │   └── utils/
 │       ├── generators/
 │       │   └── names/          # Name generator modules
-│       │       ├── alien.ts
-│       │       ├── amazon.ts
-│       │       └── anansi.ts
+│       │       ├── alien.ts    # Alien name generator
+│       │       ├── amazon.ts   # Amazon name generator
+│       │       ├── anansi.ts   # Anansi/Akan name generator
+│       │       └── angel.ts    # Angel name generator (with gender support)
+│       ├── name-generators.ts  # Client-side generator utilities
 │       ├── sensitivity-check.ts
 │       └── copy-to-clipboard.ts
 ├── package.json
@@ -89,27 +91,26 @@ dnd-tools/
 - **Animations**: Framer Motion
 - **Icons**: React Icons
 
-## 📡 API Endpoints
+## 🎨 Architecture
 
-### Name Generation
+### Client-Side Name Generation
 
-```
-GET /api/names/[type]
-```
+This project uses **client-side name generation** instead of API routes, making it:
+- ✅ Compatible with static export (GitHub Pages)
+- ✅ Faster (no network latency)
+- ✅ Simpler architecture (no server required)
+- ✅ Better for deployment on static hosting
 
-**Parameters:**
-- `type`: Name type (alien, amazon, anansi)
+Names are generated directly in the browser using utility functions from `src/utils/name-generators.ts`.
 
-**Example:**
-```bash
-GET /api/names/alien
-# Response: ["xkrath", "q'varn", "zthul", ...]
-```
+### Gender Support
 
-**Status Codes:**
-- `200`: Success - Array of generated names
-- `404`: Name type not supported
-- `500`: Server error
+Some generators (like Angel) support multiple genders:
+- **Neutral**: Gender-neutral names (always available)
+- **Male**: Masculine names (optional)
+- **Female**: Feminine names (optional)
+
+The UI automatically displays all available gender categories.
 
 ## 🛠️ Scripts
 
@@ -122,7 +123,8 @@ npm run lint     # Lint code with ESLint
 
 ## 🎯 Adding a New Name Generator
 
-1. Create a new file in `src/utils/generators/names/`
+1. Create a new file in `src/utils/generators/names/` (e.g., `elf.ts`)
+
 2. Implement the generator function with the following structure:
 
 ```typescript
@@ -131,33 +133,55 @@ import SensitivityCheck from "@/utils/sensitivity-check"
 const COUNT = 10
 const MAX_ATTEMPTS = 1000
 
-const YourNames = (): Response => {
-    // Implementation
+const ElfNames = (): Response => {
+    // Your name generation logic here
     const generate = (): string => {
-        // Name generation logic
+        // Generate a single name
         // Must use SensitivityCheck(name) before returning
+        let name = ""
+        // ... generation logic ...
+        return name
     }
     
-    const names: string[] = []
-    for (let i = 0; i < COUNT; i++) {
-        names[i] = generate()
+    // Return names organized by gender
+    // At minimum, include "neutral" key
+    const names: Record<string, string[]> = {
+        neutral: []
     }
+    
+    // Generate names for each gender
+    for (let i = 0; i < COUNT; i++) {
+        names.neutral[i] = generate()
+    }
+    
+    // Optional: Add male and female if your generator supports it
+    // names.male = [...]
+    // names.female = [...]
     
     return Response.json(names)
 }
 
-export default YourNames
+export default ElfNames
 ```
 
-3. In `src/app/api/names/[type]/route.tsx`:
-   - Import it
-   - Add it to the `generators` map
+3. In `src/utils/name-generators.ts`:
+   - Import your generator: `import ElfNames from "@/utils/generators/names/elf"`
+   - Add it to the `generators` map: `elf: ElfNames`
+
+4. The generator will automatically appear in the UI!
 
 ## 📝 Documentation
 
-Code is documented with JSDoc. To view documentation:
+Code is fully documented with JSDoc comments. To view documentation:
 - Check generator files in `src/utils/generators/names/`
-- See API route in `src/app/api/names/[type]/route.tsx`
+- See client-side utilities in `src/utils/name-generators.ts`
+- Review component documentation in `src/components/name-generator.tsx`
+
+All functions include:
+- Parameter descriptions
+- Return type documentation
+- Usage examples
+- Algorithm explanations
 
 ## 🤝 Contributing
 

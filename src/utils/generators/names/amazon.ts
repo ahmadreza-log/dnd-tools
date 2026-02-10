@@ -156,9 +156,11 @@ const AmazonNames = (): Response => {
      * Generate the requested number of names
      * Each name is generated independently and checked for sensitivity
      */
-    const names: string[] = []
+    const names: Record<string, string[]> = {
+        neutral: []
+    }
     for (let i = 0; i < COUNT; i++) {
-        names[i] = generate()
+        names.neutral[i] = generate()
     }
 
     // Return the list of generated names as JSON
