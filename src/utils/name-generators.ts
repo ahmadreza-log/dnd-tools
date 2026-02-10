@@ -24,6 +24,7 @@ import AlienNames from "@/utils/generators/names/alien";
 import AmazonNames from "@/utils/generators/names/amazon";
 import AnansiNames from "@/utils/generators/names/anansi";
 import AngelNames from "@/utils/generators/names/angel";
+import AnimalSpeciesNames from "./generators/names/animal-species";
 
 /**
  * Generator Registry
@@ -54,10 +55,11 @@ import AngelNames from "@/utils/generators/names/angel";
  * };
  */
 const generators: Record<string, () => Response> = {
-    alien: AlienNames,
-    amazon: AmazonNames,
-    anansi: AnansiNames,
-    angel: AngelNames
+    'alien': AlienNames,
+    'amazon': AmazonNames,
+    'anansi': AnansiNames,
+    'angel': AngelNames,
+    'animal-species': AnimalSpeciesNames
     // Add more generators here as they are created
 };
 
@@ -138,7 +140,7 @@ export async function generateNames(type: string): Promise<Record<string, string
     } catch (error) {
         // Log the error for debugging purposes
         console.error("Error generating names:", error);
-        
+
         // Re-throw with a user-friendly message
         // Don't expose internal error details for security reasons
         if (error instanceof Error) {
